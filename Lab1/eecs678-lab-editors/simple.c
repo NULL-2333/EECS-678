@@ -25,12 +25,12 @@ double find_cosine(double value)
 
 void useless_loop(int iterations)
 {
-    int i;
-      for (i=0; i < iterations; i++) {
-            long long t1, t2; 
-                t1 = random();
-                    t2 = random();
-                      }
+  int i;
+  for (i=0; i < iterations; i++) {
+    long long t1, t2; 
+    t1 = random();
+    t2 = random();
+  }
 }
 
 /*

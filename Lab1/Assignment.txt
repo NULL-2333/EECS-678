@@ -1,1 +1,7 @@
-1.
+Emacs is the editor I have chosen for this assignment.
+
+1. C-space C-u 12 Meta-w
+2. Open first with emacs [filename]. C-2 to split windows horizontally. C-o to switch to other window. C-x C-f [filename] to open file in new window. C-3 C-o creates new window and switches to it. In this third window type M-shell to open a shell.
+3. 
+4. 
+5. M-x replace-string will prompt the user for the string to replace('Bill Self') and ask to replace it with new string ('basketball genius Bill Self')

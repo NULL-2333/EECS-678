@@ -3670,7 +3670,8 @@ execute_simple_command (simple_command, pipe_in, pipe_out, async, fds_to_close)
        * new memory.
        */
       FREE (the_printed_command_except_trap);
-      the_printed_command_except_trap = the_printed_command;
+      the_printed_command_except_trap = savestring(the_printed_command);
+
     }
 
   /* print each part of the command as it is processed */

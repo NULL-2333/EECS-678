@@ -787,7 +787,8 @@ internal_malloc (n, file, line, flags)		/* get a block */
       busy[nunits] = 0;
       return NULL;
     }
-  nextf[nunits] = CHAIN (p);
+  nextf[nunits] = CHAIN(p);
+
   busy[nunits] = 0;
 
   /* Check for free block clobbered */

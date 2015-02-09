@@ -6,6 +6,8 @@
 #include <sys/wait.h>
 
 #define BSIZE 256
+#define READ_END 0
+#define WRITE_END 1
 
 #define BASH_EXEC  "/bin/bash"
 #define FIND_EXEC  "/bin/find"
@@ -18,8 +20,13 @@ int main(int argc, char *argv[])
 {
   int status;
   pid_t pid_1, pid_2, pid_3, pid_4;
-  int pipefd[2];
+  int fd1[2];
+  int fd2[2];
+  int fd3[2];
 
+  pipe(fd1);
+  pipe(fd2);
+  pipe(fd3);
   if (argc != 4) {
     printf("usage: finder DIR STR NUM_FILES\n");
     exit(0);
@@ -28,17 +35,19 @@ int main(int argc, char *argv[])
   pid_1 = fork();
   if (pid_1 == 0) {
     /* First Child */
-    close(pipefd[0]); // Closed unused read
+
     char cmdbuf[BSIZE];
     bzero(cmdbuf, BSIZE);
     sprintf(cmdbuf, "%s %s -name \'*\'.[ch]", FIND_EXEC, argv[1]);
     /* set up pipes */
-    write(pipefd[1],argv[1],strlen(argv[1]));
-    close(pipefd[1]);
+    dup2(0,1);
+    write(fd1[WRITE_END],argv[1],strlen(argv[1]));
+    close(fd1[WRITE_END]);
       if ( (execl(BASH_EXEC, BASH_EXEC, "-c", cmdbuf, (char *) 0)) < 0) {
 	fprintf(stderr, "\nError execing find. ERROR#%d\n", errno);
 	return EXIT_FAILURE;
       }
+      close(fd1[WRITE_END]);
     exit(0);
   }
 
@@ -46,9 +55,9 @@ int main(int argc, char *argv[])
   if (pid_2 == 0) {
     /* Second Child */
     char *buf;
-    close(pipefd[1]); // Closed unused write
-    read(pipefd[0],&buf,1);
-    close(pipefd[0]);
+    close(fd1[WRITE_END]); // Closed unused write
+    read(fd1[READ_END],&buf,1);
+    close(fd1[READ_END]);
     printf(buf);
     exit(0);
   }

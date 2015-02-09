@@ -20,7 +20,7 @@ pipe:
 	gcc -Wall -g pipe.c -o pipe
 
 clean:
-	rm -f finder pipe tmp1 tmp2
+	rm -f finder pipe tmp1 tmp2 *~ *#
 
 tar:
 	make clean

@@ -1,7 +1,7 @@
 Emacs is the editor I have chosen for this assignment.
 
-1. C-space C-u 12 Meta-w
-2. Open first with emacs [filename]. C-2 to split windows horizontally. C-o to switch to other window. C-x C-f [filename] to open file in new window. C-3 C-o creates new window and switches to it. In this third window type M-shell to open a shell.
-3. 
-4. 
-5. M-x replace-string will prompt the user for the string to replace('Bill Self') and ask to replace it with new string ('basketball genius Bill Self')
+1. First need to mark the beginning of the text, then specify 12 lines to mark, and finally copy it. This command is "C-SPC C-u 12 M-w." To create the first file, the command is "C-x C-f a.c" and the paste command is "C-y." Save the file (C-x C-s) and do the same for b.c and c.c.
+2. Open first with emacs [filename]. C-2 to split windows horizontally. C-o to switch to other window. C-x C-f [filename] to open file in new window. C-3 C-o creates new window and switches to it. In this third window type M-shell to open a shell. Most operating systems support Alt+Tab to switch to another application if you choose to use the terminal quickly.
+3. A set of tags needs to be generated to search. This can be done running "etags --declarations *.h *.c". Then the user can search the function definition with "M-x find-tag [function_declaration]". Then the user can use "M-x previous-buffer" to go back to the original buffer.
+4. "M-x replace-regexp ^[[:space:]]* RET" will replace all whitespace characters from the beginning of the line to the first character. 
+5. Make sure the cursor is at the top of the editor. "M-x replace-string" will prompt the user for the string to replace('Bill Self') and ask to replace it with new string ('basketball genius Bill Self')

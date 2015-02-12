@@ -1,0 +1,12 @@
+
+simple.h,96
+#define COSINE_ONE 1,0
+#define COSINE_TWO 2,24
+#define LOOP_NUM 3,45
+#define PRINT_NUM 4,68
+
+simple.c,102
+void display_onto_stdout(7,98
+double find_cosine(16,460
+void useless_loop(26,629
+int main(68,1953

@@ -1,0 +1,5 @@
+1. The problem was that the string was not being copied. The pointer was just changing, so it resulted in the memory being deallocated twice resulting in the segmentation fault.
+
+2. I set the breakpoint at the execute_simple_command and ran the program. I went up through the stack trace until I saw this error in copying a string.
+
+3. This solution makes a copy of the char * and returns a new char * that is assigned to the variable. This ensures the pointer is not changed from the original value.

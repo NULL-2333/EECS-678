@@ -38,16 +38,18 @@ int main(int argc, char *argv[])
     bzero(cmdbuf, BSIZE);
     sprintf(cmdbuf, "%s %s -name \'*\'.[ch]", FIND_EXEC, argv[1]);
     /* set up pipes */
+    close(fd1[READ_END]);
+    close(fd1[WRITE_END]);
+    close(fd2[READ_END]);
+    close(fd2[WRITE_END]);
+    close(fd3[READ_END]);
+    close(fd3[WRITE_END]);
 
     if ( (execl(BASH_EXEC, BASH_EXEC, "-c", cmdbuf, (char *) 0)) < 0) {
       fprintf(stderr, "\nError execing find. ERROR#%d\n", errno);
       return EXIT_FAILURE;
     }
-    close(fd1[READ_END]);
-    close(fd2[READ_END]);
-    close(fd2[WRITE_END]);
-    close(fd3[READ_END]);
-    close(fd3[WRITE_END]);
+
     exit(0);
   }
 
@@ -59,7 +61,7 @@ int main(int argc, char *argv[])
     dup2(fd1[READ_END],STDIN_FILENO);
     dup2(fd2[WRITE_END],STDOUT_FILENO);
 
-
+    sprintf(cmdbuf, "%s %s -c %s", XARGS_EXEC, GREP_EXEC, argv[2]);
     size_t rsize;
 
     /*while ((rsize = read(fd1[READ_END], cmdbuf,BSIZE)) > 0) {
@@ -67,18 +69,21 @@ int main(int argc, char *argv[])
 
 
       }*/
+    close(fd1[READ_END]);
+    close(fd1[WRITE_END]);
+    close(fd2[READ_END]);
+    close(fd2[WRITE_END]);
+    close(fd3[READ_END]);
+    close(fd3[WRITE_END]);
 
-    if ( (execl(XARGS_EXEC, XARGS_EXEC, GREP_EXEC, "--count",  argv[2], (char *) 0)) < 0) {
+    if ( (execl(BASH_EXEC, BASH_EXEC, "-c", cmdbuf, (char *) 0)) < 0) {
       fprintf(stderr, "\nError execing find. ERROR#%d\n", errno);
       return EXIT_FAILURE;
     }
-    close(fd1[WRITE_END]);
-    close(fd2[READ_END]);
-    close(fd3[READ_END]);
-    close(fd3[WRITE_END]);
+
     exit(0);
   }
-  
+
   pid_3 = fork();
   if (pid_3 == 0) {
  
@@ -87,30 +92,22 @@ int main(int argc, char *argv[])
     dup2(fd2[READ_END],STDIN_FILENO);
     dup2(fd3[WRITE_END],STDOUT_FILENO);
 
-    //     dup2(fd1[WRITE_END],1);
-    //    dup2(fd2[WRITE_END],fd2[READ_END]);
-
-
     size_t rsize;
 
-    // sprintf(cmdbuf, "%s %s -c %s", XARGS_EXEC, GREP_EXEC, argv[2]);
+    sprintf(cmdbuf, "%s -t : +1.0 -2.0 --numeric --reverse", SORT_EXEC);
 
-    /*while ((rsize = read(fd2[READ_END], cmdbuf,BSIZE)) > 0) {
-      write(STDOUT_FILENO, cmdbuf, rsize);
+    close(fd1[READ_END]);
+    close(fd1[WRITE_END]);
+    close(fd2[READ_END]);
+    close(fd2[WRITE_END]);
+    close(fd3[READ_END]);
+    close(fd3[WRITE_END]);
 
 
-      }*/
-
-
-
-    if ( (execl(SORT_EXEC, SORT_EXEC, "-t", ":", "+1.0", "-2.0", "--numeric", "--reverse", (char *) 0)) < 0) {
+    if ( (execl(BASH_EXEC, BASH_EXEC, "-c", cmdbuf, (char *) 0)) < 0) {
       fprintf(stderr, "\nError execing find. ERROR#%d\n", errno);
       return EXIT_FAILURE;
     }
-    close(fd1[READ_END]);
-    close(fd1[WRITE_END]);
-    close(fd2[WRITE_END]);
-    close(fd2[READ_END]);
 
     exit(0);
   }
@@ -121,24 +118,29 @@ int main(int argc, char *argv[])
     char cmdbuf[BSIZE];
     bzero(cmdbuf, BSIZE);
     dup2(fd3[READ_END],STDIN_FILENO);
-    //    dup2(1, fd3[WRITE_END]);
 
-    size_t rsize;
+    sprintf(cmdbuf, "%s --lines=%s",HEAD_EXEC, argv[3]);
+    close(fd1[READ_END]);
+    close(fd1[WRITE_END]);
+    close(fd2[READ_END]);
+    close(fd2[WRITE_END]);
+    close(fd3[READ_END]);
+    close(fd3[WRITE_END]);
 
-
-    sprintf(cmdbuf, "--lines=%s",argv[3]);
-
-    if ( (execl(HEAD_EXEC, HEAD_EXEC, cmdbuf, (char *) 0)) < 0) {
+    if ( (execl(BASH_EXEC, BASH_EXEC, "-c", cmdbuf, (char *) 0)) < 0) {
       fprintf(stderr, "\nError execing find. ERROR#%d\n", errno);
       return EXIT_FAILURE;
     }
-    close(fd1[READ_END]);
-    close(fd1[WRITE_END]);
-    close(fd2[WRITE_END]);
-    close(fd2[READ_END]);
-    //    close(fd3[WRITE_END]);
+
     exit(0);
   }
+
+    close(fd1[READ_END]);
+    close(fd1[WRITE_END]);
+    close(fd2[READ_END]);
+    close(fd2[WRITE_END]);
+    close(fd3[READ_END]);
+    close(fd3[WRITE_END]);
   
   if ((waitpid(pid_1, &status, 0)) == -1) {
     fprintf(stderr, "Process 1 encountered an error. ERROR%d", errno);

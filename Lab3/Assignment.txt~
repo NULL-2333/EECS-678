@@ -1,0 +1,1 @@
+1. I created 4 processes. The first process runs the find command. The second process runs the grep. The third process runs the sort command. The final proccess runs the head command. There are three pipes needed to run the commands. The pipes are needed for the first to second processes, second to third processes, and third to fourth processes. The 

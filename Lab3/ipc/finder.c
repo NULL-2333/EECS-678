@@ -25,10 +25,10 @@ int main(int argc, char *argv[])
   pipe(fd1);
   pipe(fd2);
   pipe(fd3);
-  /*if (argc != 4) {
+  if (argc != 4) {
     printf("usage: finder DIR STR NUM_FILES\n");
     exit(0);
-    }*/
+  }
 
   pid_1 = fork();
   if (pid_1 == 0) {
@@ -62,13 +62,7 @@ int main(int argc, char *argv[])
     dup2(fd2[WRITE_END],STDOUT_FILENO);
 
     sprintf(cmdbuf, "%s %s -c %s", XARGS_EXEC, GREP_EXEC, argv[2]);
-    size_t rsize;
-
-    /*while ((rsize = read(fd1[READ_END], cmdbuf,BSIZE)) > 0) {
-      write(STDOUT_FILENO, cmdbuf, rsize);
-
-
-      }*/
+   
     close(fd1[READ_END]);
     close(fd1[WRITE_END]);
     close(fd2[READ_END]);
@@ -91,8 +85,6 @@ int main(int argc, char *argv[])
     bzero(cmdbuf, BSIZE);
     dup2(fd2[READ_END],STDIN_FILENO);
     dup2(fd3[WRITE_END],STDOUT_FILENO);
-
-    size_t rsize;
 
     sprintf(cmdbuf, "%s -t : +1.0 -2.0 --numeric --reverse", SORT_EXEC);
 

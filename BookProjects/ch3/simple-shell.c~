@@ -1,0 +1,42 @@
+/**
+ * Simple shell interface program.
+ *
+ * Operating System Concepts - Ninth Edition
+ * Copyright John Wiley & Sons - 2013
+ */
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+
+#define MAX_LINE		80 /* 80 chars per line, per command */
+#define DELIMS                  " \t\r\n"
+int main(int argc, char *argv[])
+{
+  char args[MAX_LINE/2 + 1];	/* command line (of 80) has max of 40 arguments */
+  int should_run = 1;
+  char* cmd;
+  int i, upper;
+  args[6] = "HIIIII";
+  while (should_run){   
+    printf("osh>");
+    fflush(stdout);
+    if(!fgets((args),MAX_LINE,stdin)) break;
+    cmd = strtok(args,DELIMS);
+    int i = 0;
+    while(cmd != NULL) {
+
+      printf(cmd);
+      cmd = strtok(NULL,DELIMS);
+    }    
+    /**
+     * After reading user input, the steps are:
+     * (1) fork a child process
+     * (2) the child process will invoke execvp()
+     * (3) if command included &, parent will invoke wait()
+     */
+  }
+    
+  return 0;
+}

@@ -1,0 +1,6 @@
+1. Incrementing the count variable needed to be locked.
+
+2. The count variable varies because different threads execute it at the same time and they do not increment the value properly. This inconsitency comes from the assembly instructions loading, adding, and storing in the wrong order.
+
+3. Only one thread can increment and store the count variable. This insures the assembly instructions do not overlap and count remains a consistent variable.
+

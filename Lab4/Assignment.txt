@@ -1,0 +1,3 @@
+1. The server runs first and waits for a request to setup a connection. The client then starts and asks to start a connection. They go through a handshake process and the client then sends the information to the server.
+
+2. 

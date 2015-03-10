@@ -276,27 +276,44 @@ void *producer (void *parg)
    * Continue producing until the total produced reaches the
    * configured maximum
    */
+
+
   while (1) {
     /*
      * Do work to produce an item. Tthe get a slot in the queue for
      * it. Finally, at the end of the loop, outside the critical
      * section, announce that we produced it.
      */
+
     do_work(PRODUCER_CPU, PRODUCER_BLOCK);
 
     /*
      * If the queue is full, we have no place to put anything we
      * produce, so wait until it is not full.
      */
+
+    pthread_mutex_lock(fifo->mutex);       
+
+      pthread_cond_broadcast(fifo->notEmpty);           
+
+
+
     while (fifo->full && *total_produced != WORK_MAX) {
+
+
       printf ("prod %d:  FULL.\n", my_tid);
+
+      pthread_cond_wait(fifo->notFull,fifo->mutex);             
+
     }
 
     /*
      * Check to see if the total produced by all producers has reached
      * the configured maximum, if so, we can quit.
      */
+
     if (*total_produced >= WORK_MAX) {
+    pthread_mutex_unlock(fifo->mutex);    
       break;
     }
 
@@ -305,14 +322,19 @@ void *producer (void *parg)
      * widgets produced, and add the new widget ID, its number, to the
      * queue.
      */
+
     item_produced = (*total_produced)++;
+
     queueAdd (fifo, item_produced);
+      pthread_cond_broadcast(fifo->notEmpty);           
+    pthread_mutex_unlock(fifo->mutex);    
+
 
     /*
      * Announce the production outside the critical section 
      */
     printf("prod %d:  %d.\n", my_tid, item_produced);
-
+    pthread_mutex_unlock(fifo->mutex);    
   }
 
   printf("prod %d:  exited\n", my_tid);
@@ -337,20 +359,34 @@ void *consumer (void *carg)
    * Continue producing until the total consumed by all consumers
    * reaches the configured maximum
    */
+
   while (1) {
     /*
      * If the queue is empty, there is nothing to do, so wait until it
      * si not empty.
      */
+
+    pthread_mutex_lock(fifo->mutex);     
+
+
+      pthread_cond_broadcast(fifo->notFull);
+
     while (fifo->empty && *total_consumed != WORK_MAX) {
+
+
+
+
       printf ("con %d:   EMPTY.\n", my_tid);
+      pthread_cond_wait(fifo->notEmpty,fifo->mutex);             
     }
 
     /*
      * If total consumption has reached the configured limit, we can
      * stop
      */
+
     if (*total_consumed >= WORK_MAX) {
+    pthread_mutex_unlock(fifo->mutex);          
       break;
     }
 
@@ -360,8 +396,13 @@ void *consumer (void *carg)
      * thread can retain a memory of which item it consumed even if
      * others are busy consuming them. 
      */
+
     queueRemove (fifo, &item_consumed);
+      pthread_cond_broadcast(fifo->notFull);
+    pthread_mutex_unlock(fifo->mutex);          
+
     (*total_consumed)++;
+
 
 
     /*
@@ -369,6 +410,7 @@ void *consumer (void *carg)
      * obtained from the queue and then announce its consumption.
      */
     do_work(CONSUMER_CPU,CONSUMER_CPU);
+
     printf ("con %d:   %d.\n", my_tid, item_consumed);
 
   }

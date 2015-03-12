@@ -1,6 +1,9 @@
-1. Incrementing the count variable needed to be locked.
+1. Incrementing the count variable needed to be locked. This meant other threads could have updated the value of loc or count inbetween instructions resulting in inconsistent values.
 
-2. The count variable varies because different threads execute it at the same time and they do not increment the value properly. This inconsitency comes from the assembly instructions loading, adding, and storing in the wrong order.
+2. The race condition to update count does not occur very often, so smaller loop conditions often result with a consistent value.
 
-3. Only one thread can increment and store the count variable. This insures the assembly instructions do not overlap and count remains a consistent variable.
+3. Each threads gets its own space in the program. Its local variables are safe from other threads, while the global variable count is not safe.
 
+4. The mutex ensures only one thread can increment and store the count variable at a time. This insures the machine instructions do not overlap and count remains consistent.
+
+5. The lock and unlock version ran slower because there is time when threads are waiting on the one thread to finishe incrementing the count variable. The program ran fast without these restrictions because each thread could execute without stopping for other threads. Although this came with the penalty of inaccurate results.

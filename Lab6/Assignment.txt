@@ -1,0 +1,5 @@
+1. The problem I was trying to solve was to have multiple threads add and remove things to a buffer. It should not add to a full buffer and should not try to remove from an empty buffer. When multiple threads try to do this, there can be problems with these operations not occurring atomically.
+
+2. Busy waiting wastes CPU resources that other threads and processes to use.
+
+3. Only one thread of each the consumer and producer output the item. Both the producer and consumer threads produce and consume 30 items and then exit correctly. Running these tests with different numbers of threads for each the producer and consumer have similar behavior when adding and removing items from the queue. This means the threads are locking correctly.

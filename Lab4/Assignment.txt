@@ -1,3 +1,5 @@
-1. The server runs first and waits for a request to setup a connection. The client then starts and asks to start a connection. They go through a handshake process and the client then sends the information to the server.
+1. The server runs first and waits for a request to setup a connection. The client then starts and asks to start a connection. They go through a handshake process to create the session socket and the client then sends the information to the server.
 
-2. 
+2. The sockets need to be bound to and address that both client and server are aware of before they send information.
+
+3. Sockets need to be used in a typical client/server scenario because sockets work over IPv4 and IPv6 and pipes are only used on a host machine. The second reason we used sockets was because these were two unrelated processes, and pipes are used to connecting the output and input between related processes.

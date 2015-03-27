@@ -1,1 +1,9 @@
-1. 
+1. The asymmetric solution only allows the even-numbered philosphers pick up in left-right order and odd-numbered philosphers pick up in right-left order. This eliminates the circular hold condition for a deadlock to occur.
+
+2. No because the same philophers could be granted the right to pick up the chop sticks since there is nothing to keep track of which philospher has not picked anything up yet.
+
+3. This solution uses a mutex which allows only one philosopher at a time to pick up their chopsticks. It prevents a deadlocked state because it prevents a hold and wait condition to occur.
+
+4. The same problem with possible starvation with the assymetric solution occurs with this solution as well. The philospher who is scheduled first will get to obtain the chopsticks.
+
+5. Another philosopher checked the resourses and was able to enter the mutex becuase the philospher freed them. This philospher was able to check and acquire the mutex before Phil could wake up and check the chopsticks.

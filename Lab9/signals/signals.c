@@ -15,13 +15,17 @@ void catch_int(int sig_num)
   ctrl_c_count++;
   if (ctrl_c_count >= CTRL_C_THRESHOLD) {
     char answer[30];
+    alarm(10);
 
     /* prompt the user to tell us if to really
      * exit or not */
     printf("\nReally exit? [Y/n]: ");
+
     fflush(stdout);
+
     fgets(answer, sizeof(answer), stdin);
     if (answer[0] == 'n' || answer[0] == 'N') {
+      alarm(0);
       printf("\nContinuing\n");
       fflush(stdout);
       /* 
@@ -45,15 +49,39 @@ void catch_tstp(int sig_num)
   fflush(stdout);
 }
 
+void catch_alarm(int sig_num) {
+  printf("\nUser taking too long to respond. Exiting...\n");
+  exit(0);
+}
+
 int main(int argc, char* argv[])
 {
-  struct sigaction sa;
+  struct sigaction sa1;
+  struct sigaction sa2;
+  struct sigaction sa3;
   sigset_t mask_set;  /* used to set a signal masking set. */
 
+
   /* setup mask_set */
+  sigfillset(&mask_set);
+  sigdelset(&mask_set,SIGALRM);    
 
   /* set signal handlers */
+  sa1.sa_mask = mask_set;
+  sa2.sa_mask = mask_set;
+  sa3.sa_mask = mask_set;
 
+  sa1.sa_handler = catch_int;
+  sa2.sa_handler = catch_tstp;
+  sa3.sa_handler = catch_alarm;
+
+  sigaction(SIGINT,&sa1,NULL);
+  sigaction(SIGTSTP,&sa2,NULL);
+  sigaction(SIGALRM,&sa3,NULL);
+
+  while(1) {
+    pause();
+  }
   return 0;
 }
 

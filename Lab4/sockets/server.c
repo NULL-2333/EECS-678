@@ -31,15 +31,17 @@ int main(int argc, char *argv[])
   struct sockaddr_un saun;
   char buf[BSIZE];
    
-#if 0
+
   /* Add Code: Populate the sockaddr_un struct */
- 
+  saun.sun_family = AF_UNIX;
+  strcpy(saun.sun_path,SOCKET_ADDRESS);
+
   /* Add Code: Create the handshake socket */
+  handshake_sockfd = socket(PF_UNIX, SOCK_STREAM, 0);
   if (handshake_sockfd < 0) {
     fprintf(stderr, "\nError Opening Socket, ERROR#%d\n", errno);
     return EXIT_FAILURE;
   }
-
 
   /* 
    * We need to unlink the address before binding to ensure the
@@ -48,6 +50,7 @@ int main(int argc, char *argv[])
   unlink(SOCKET_ADDRESS);
 
   /* Add Code: Bind the handshake socket to the sockaddr. */ 
+  ret = bind(handshake_sockfd,(struct sockaddr*)&saun,sizeof(saun));
   if (ret < 0) {
     fprintf(stderr, "\nError Binding Socket, ERROR#%d\n", errno);
     return EXIT_FAILURE;
@@ -56,6 +59,7 @@ int main(int argc, char *argv[])
   /* Add Code: Make the handshake socket a listening socket, with a
    * specified Queue Size
    */
+  ret = listen(handshake_sockfd,1);
   if (ret < 0) {
     fprintf(stderr, "\nError Listening on Socket, ERROR#%d\n", errno);
     return EXIT_FAILURE;
@@ -64,6 +68,8 @@ int main(int argc, char *argv[])
   /* Add Code: Accept a connection on the handshake socket,
    * giving the session socket as the return value.
    */
+  session_sockfd = accept(handshake_sockfd,NULL,NULL);
+  //  accept(session_sockfd,NULL,NULL);
   if (session_sockfd < 0) {
     fprintf(stderr, "\nError Accepting Socket, ERROR#%d\n", errno);
     return EXIT_FAILURE;
@@ -74,12 +80,19 @@ int main(int argc, char *argv[])
    * write the line back to the client. Continue until there are no
    * more lines to read.
    */
-  while (?) {
+  while (1) {
+    read(session_sockfd,buf,BSIZE);
+    if(buf[0] == '\0')
+      break;
     printf("RECEIVED:\n%s", buf);
+    convert_string(buf);
+    write(session_sockfd,buf,BSIZE);
     printf("SENDING:\n%s\n", buf);
+    buf[0] = 0;
+
   }
 
   close(session_sockfd);
   close(handshake_sockfd);
-#endif
+
 }

@@ -24,16 +24,20 @@ int main(int argc, char *argv[])
   struct sockaddr_un saun;
   char buf[BSIZE];
     
-#if 0
+
   /* Add Code: Populate the sockaddr_un struct */
+  saun.sun_family = AF_UNIX;
+  strcpy(saun.sun_path,SOCKET_ADDRESS);
 
   /* Add Code: Create the client session socket */
+  sockfd = socket(PF_UNIX, SOCK_STREAM,0);
   if (sockfd < 0) {
     fprintf(stderr, "\nError Opening Socket, ERROR#%d\n", errno);
     return EXIT_FAILURE;
   }
 
   /* Add Code: Connect the session socket to the server */
+  connect(sockfd,(struct sockaddr*)&saun,sizeof(saun));
   if (ret < 0) {
     fprintf(stderr, "\nError Connecting Sockets, ERROR#%d\n", errno);
     return EXIT_FAILURE;
@@ -45,9 +49,12 @@ int main(int argc, char *argv[])
    */
   for (i = 0; i < NSTRS; i++) {
     printf("SENDING:\n%s", strs[i]);
+    write(sockfd,strs[i],BSIZE);
+    read(sockfd,buf,BSIZE);
     printf("RECEIVED:\n%s\n", buf);
+
   }
 
   close(sockfd);
-#endif
+
 }

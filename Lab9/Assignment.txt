@@ -1,0 +1,7 @@
+1. The system designers do not want a rogue program to kill other important processes which could harm the system.
+
+2. The pause will not waste the CPU resources, but the infinite while loop will waste many cycles waiting for something to do.
+
+3. These signals are blocked because we want to handle them ourselves in the program.
+
+4. The SIGALRM is already delivered to the calling process. The program needs to have a way to handle it when it arrives.

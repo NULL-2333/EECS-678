@@ -1,0 +1,94 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ACTIVE_DURATION	procfs/dine.c	20;"	d	file:
+DEADLOCK	procfs/dine.c	19;"	d	file:
+FIELDS_TO_IGNORE	procfs/dine.c	17;"	d	file:
+MAX_BUF	procfs/dine.c	15;"	d	file:
+NUM_CHOPS	procfs/dine.c	16;"	d	file:
+NUM_PHILS	procfs/dine.c	14;"	d	file:
+STUDENT_ID	procfs/Makefile	/^STUDENT_ID=XXXXXXX$/;"	m
+blocked	procfs/procstat.c	/^num blocked;$/;"	v
+can_eat	procfs/dine.c	/^  pthread_cond_t can_eat; $/;"	m	struct:__anon1	file:
+check_for_deadlock	procfs/dine.c	/^int check_for_deadlock()$/;"	f
+chopstick	procfs/dine.c	/^static pthread_mutex_t chopstick[NUM_CHOPS];$/;"	v	file:
+cmaj_flt	procfs/procstat.c	/^num cmaj_flt;$/;"	v
+cmin_flt	procfs/procstat.c	/^num cmin_flt;$/;"	v
+cpu	procfs/procstat.c	/^num cpu;$/;"	v
+cstime	procfs/procstat.c	/^num cstime;$/;"	v
+cutime	procfs/procstat.c	/^num cutime;$/;"	v
+diners	procfs/dine.c	/^static philosopher diners[NUM_PHILS];$/;"	v	file:
+dp_thread	procfs/dine.c	/^static void *dp_thread(void *arg)$/;"	f	file:
+eat_one_mouthful	procfs/dine.c	/^void eat_one_mouthful()$/;"	f
+eip	procfs/procstat.c	/^num eip;$/;"	v
+end_code	procfs/procstat.c	/^num end_code;$/;"	v
+esp	procfs/procstat.c	/^num esp;$/;"	v
+exit_signal	procfs/procstat.c	/^num exit_signal;$/;"	v
+flags	procfs/procstat.c	/^num flags;$/;"	v
+gettid	procfs/dine.c	12;"	d	file:
+gettimesinceboot	procfs/procstat.c	/^int gettimesinceboot() {$/;"	f
+id	procfs/dine.c	/^  int id;$/;"	m	struct:__anon1	file:
+input	procfs/procstat.c	/^FILE *input;$/;"	v
+it_real_value	procfs/procstat.c	/^num it_real_value;$/;"	v
+left_chop	procfs/dine.c	/^pthread_mutex_t *left_chop (philosopher *p)$/;"	f
+left_phil	procfs/dine.c	/^philosopher *left_phil (philosopher *p)$/;"	f
+main	procfs/dine.c	/^int main(int argc, char **argv)$/;"	f
+main	procfs/procstat.c	/^int main(int argc, char *argv[]) {$/;"	f
+maj_flt	procfs/procstat.c	/^num maj_flt;$/;"	v
+min_flt	procfs/procstat.c	/^num min_flt;$/;"	v
+nicev	procfs/procstat.c	/^num nicev;$/;"	v
+num	procfs/procstat.c	/^typedef long long int num;$/;"	t	file:
+num_threads	procfs/procstat.c	/^num num_threads;$/;"	v
+pending	procfs/procstat.c	/^num pending;$/;"	v
+pgid	procfs/procstat.c	/^num pgid;$/;"	v
+philosopher	procfs/dine.c	/^} philosopher;$/;"	t	typeref:struct:__anon1	file:
+pid	procfs/procstat.c	/^num pid;$/;"	v
+policy	procfs/procstat.c	/^num policy;$/;"	v
+ppid	procfs/procstat.c	/^num ppid;$/;"	v
+print_progress	procfs/dine.c	/^void print_progress()$/;"	f
+printchar	procfs/procstat.c	/^void printchar(char *name, char x) {  printf("%20s: %c\\n", name, x);}$/;"	f
+printone	procfs/procstat.c	/^void printone(char *name, num x) {  printf("%20s: %lld\\n", name, x);}$/;"	f
+printonex	procfs/procstat.c	/^void printonex(char *name, num x) {  printf("%20s: %016llx\\n", name, x);}$/;"	f
+printstr	procfs/procstat.c	/^void printstr(char *name, char *x) {  printf("%20s: %s\\n", name, x);}$/;"	f
+printtime	procfs/procstat.c	/^void printtime(char *name, num x) {  printf("%20s: %f\\n", name, (((double)x) \/ tickspersec));}$/;"	f
+printtimediff	procfs/procstat.c	/^void printtimediff(char *name, num x) {$/;"	f
+printunsigned	procfs/procstat.c	/^void printunsigned(char *name, unsigned long long x) {  printf("%20s: %llu\\n", name, x);}$/;"	f
+priority	procfs/procstat.c	/^num priority;$/;"	v
+readchar	procfs/procstat.c	/^void readchar(char *x) {  fscanf(input, "%c ", x);}$/;"	f
+readone	procfs/procstat.c	/^void readone(num *x) { fscanf(input, "%lld ", x); }$/;"	f
+readstr	procfs/procstat.c	/^void readstr(char *x) {  fscanf(input, "%s ", x);}$/;"	f
+readunsigned	procfs/procstat.c	/^void readunsigned(unsigned long long *x) { fscanf(input, "%llu ", x); }$/;"	f
+right_chop	procfs/dine.c	/^pthread_mutex_t *right_chop (philosopher *p)$/;"	f
+right_phil	procfs/dine.c	/^philosopher *right_phil (philosopher *p)$/;"	f
+rss	procfs/procstat.c	/^num rss;$/;"	v
+rsslim	procfs/procstat.c	/^num rsslim;$/;"	v
+rt_priority	procfs/procstat.c	/^num rt_priority;$/;"	v
+set_table	procfs/dine.c	/^void set_table()$/;"	f
+sid	procfs/procstat.c	/^num sid;$/;"	v
+sigcatch	procfs/procstat.c	/^num sigcatch;$/;"	v
+sigign	procfs/procstat.c	/^num sigign;$/;"	v
+start_code	procfs/procstat.c	/^num start_code;$/;"	v
+start_stack	procfs/procstat.c	/^num start_stack;$/;"	v
+start_time	procfs/procstat.c	/^unsigned long long start_time;$/;"	v
+state	procfs/procstat.c	/^char state;$/;"	v
+stimev	procfs/procstat.c	/^num stimev;$/;"	v
+stop	procfs/dine.c	/^static int stop=0;$/;"	v	file:
+sys_progress	procfs/dine.c	/^static unsigned long sys_progress[NUM_PHILS];$/;"	v	file:
+sys_time	procfs/dine.c	/^static unsigned long sys_time[NUM_PHILS];$/;"	v	file:
+tcomm	procfs/procstat.c	/^char tcomm[PATH_MAX];$/;"	v
+think_one_thought	procfs/dine.c	/^void think_one_thought()$/;"	f
+thread	procfs/dine.c	/^  pthread_t thread;$/;"	m	struct:__anon1	file:
+tickspersec	procfs/procstat.c	/^long tickspersec;$/;"	v
+tid	procfs/dine.c	/^  int tid;$/;"	m	struct:__anon1	file:
+tty_nr	procfs/procstat.c	/^num tty_nr;$/;"	v
+tty_pgrp	procfs/procstat.c	/^num tty_pgrp;$/;"	v
+user_progress	procfs/dine.c	/^static unsigned long user_progress[NUM_PHILS];$/;"	v	file:
+user_time	procfs/dine.c	/^static unsigned long user_time[NUM_PHILS];$/;"	v	file:
+utime	procfs/procstat.c	/^num utime;$/;"	v
+vsize	procfs/procstat.c	/^num vsize;$/;"	v
+wchan	procfs/procstat.c	/^num wchan;$/;"	v
+zero1	procfs/procstat.c	/^num zero1;$/;"	v
+zero2	procfs/procstat.c	/^num zero2;$/;"	v

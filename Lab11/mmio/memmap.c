@@ -66,21 +66,24 @@ int main (int argc, char *argv[])
   /* 
    * 2. go to the location corresponding to the last byte 
    */
-  if(lseek(fdin,statbuf.st_size,SEEK_SET) < 0) {
+  if(lseek(fdout,statbuf.st_size-1,SEEK_SET) < 0) {
     err_sys("lseek error");
   }
+
   /* 
    * 3. write a dummy byte at the last location 
    */
   if(write(fdout,"",1) < 0) {
     err_sys("write error");
   }
+
   /* 
    * 4. mmap the input file 
    */
   if((src = mmap(NULL,statbuf.st_size,PROT_READ,MAP_SHARED,fdin,0)) < 0) {
     err_sys("mmap input error");
   }
+
   /* 
    * 5. mmap the output file 
    */
@@ -95,9 +98,9 @@ int main (int argc, char *argv[])
      * stores what is in the memory location pointed to by src into
      * the memory location pointed to by dst.
      */
-  memcpy(src,dst,statbuf.st_size);
+  memcpy(dst,src,statbuf.st_size);
 
-  //    *dst = *src;
+    *dst = *src;
 } 
 
 

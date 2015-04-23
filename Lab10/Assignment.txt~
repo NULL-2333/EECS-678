@@ -1,5 +1,0 @@
-1. No it is not. It could depend on process and thread scheduling when the program will continue to execute.
-
-2. 
-
-3. I tried the default value of 200, 1000, and 2000. The default value of 200 ran into deadlock rather quickly. The value of 1000 ran into deadlock after about a minute. The value of 2000 did not run into deadlock for the several minutes I ran it.

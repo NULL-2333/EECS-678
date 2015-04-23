@@ -57,30 +57,46 @@ int main (int argc, char *argv[])
   /* 
    * 1. find size of input file 
    */
+  
+  if(fdstat(fdin,&statbuf) < 0){
+    err_sys("fstat error");
+  }
+
 
   /* 
    * 2. go to the location corresponding to the last byte 
    */
-
+  if(lseek(fdin,statbuf.st_size,SEEK_SET) < 0) {
+    err_sys("lseek error");
+  }
   /* 
    * 3. write a dummy byte at the last location 
    */
-
+  if(write(fdout,"",1) < 0) {
+    err_sys("write error");
+  }
   /* 
    * 4. mmap the input file 
    */
-
+  if((src = mmap(NULL,statbuf.st_size,PROT_READ,MAP_SHARED,fdin,0)) < 0) {
+    err_sys("mmap input error");
+  }
   /* 
    * 5. mmap the output file 
    */
+  if((dst = mmap(NULL,statbuf.st_size,PROT_READ|PROT_WRITE,MAP_SHARED,fdout,0)) < 0) {
+    err_sys("mmap output error");
+  }
 
   /* 
    * 6. copy the input file to the output file 
    */
     /* Memory can be dereferenced using the * operator in C.  This line
      * stores what is in the memory location pointed to by src into
-     * the memory location pointed to by dest.
+     * the memory location pointed to by dst.
      */
+  memcpy(src,dst,statbuf.st_size);
+
     *dst = *src;
 } 
 

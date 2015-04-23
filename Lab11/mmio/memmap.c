@@ -58,7 +58,7 @@ int main (int argc, char *argv[])
    * 1. find size of input file 
    */
   
-  if(fdstat(fdin,&statbuf) < 0){
+  if (fstat (fdin,&statbuf) < 0) {
     err_sys("fstat error");
   }
 
@@ -97,7 +97,7 @@ int main (int argc, char *argv[])
      */
   memcpy(src,dst,statbuf.st_size);
 
-    *dst = *src;
+  //    *dst = *src;
 } 
 
 

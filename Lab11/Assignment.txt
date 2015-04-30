@@ -1,0 +1,3 @@
+1. The read_write implementation uses read() and write() system calls. Every time the access is needed to the file a system call and disk access is required. The memmap uses memory mapping to allow part of the virtual address space to be associated with the file. Mapping the file to memory allows reads and writes to it are routine memory accesses. The read() system calls() must be executed enough times depending on the buffer size to copy the file. The memmap uses demand paging and reads in and writes a page from the file system into memory.
+
+2. The mistake is that the file is copied always with the buffer size entered by the user. It could be changed by checking the length of the file left and if it is less than the buffer size then write that amount into the file.
